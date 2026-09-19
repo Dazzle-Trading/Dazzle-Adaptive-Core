@@ -1,0 +1,15 @@
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from app.core.db import Base
+
+class Task(Base):
+    __tablename__ = "tasks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    status = Column(String, default="pending")
+    entity_id = Column(Integer, ForeignKey("entities.id"))
+    unit_id = Column(Integer, ForeignKey("units.id"))
+
+    entity = relationship("Entity")
+    unit = relationship("Unit")
